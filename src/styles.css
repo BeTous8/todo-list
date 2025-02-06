@@ -1,0 +1,99 @@
+
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  
+  * {
+    margin: 0;
+  }
+  
+  body {
+    
+    line-height: 1.5;
+    
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  
+  
+  input, button, textarea, select {
+    font: inherit;
+  }
+  
+  
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+  
+  
+  p {
+    text-wrap: pretty;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+  
+  
+  #root, #__next {
+    isolation: isolate;
+  }
+
+
+  .container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    height: 100vh;
+  }
+
+  .sidebar {
+    background-color: rgb(221, 168, 221);
+    display: grid;
+  }
+
+  .content {
+    background-color: rgb(184, 241, 184);
+  }
+
+  .sb-items {
+    display: flex;
+    flex-direction: column;
+    margin: .8rem;
+    
+    
+   
+  }
+
+  .add-task {
+    
+    
+  }
+
+  .my-projects {
+    margin-top: 300px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .top-row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .title {
+    
+  }
+
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 200px;
+  }
