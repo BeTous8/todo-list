@@ -14,8 +14,16 @@ class Project {
     getTasks() {
         return this.task;
     }
-}
 
+    getTaskTitles() {
+        const taskArr = [];
+        
+        this.task.forEach(item => {
+            taskArr.push(item['title'])
+    })
+    return taskArr;
+    }
+}
 
 function projectManager() {
     const projects = [];
