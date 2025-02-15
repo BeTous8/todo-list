@@ -13,12 +13,11 @@
                 <div class="my-projects">
                     <div class="top-row">
                         <h3 class="title">My Projects</h3>
-                        <button class="add-sign">+</button>
+                        <button class="add-sign">add project</button>
                     </div>
                     
                     <div class="project-list">
-                        <button class="home">Home</button>
-                        <button class="work">Work</button>
+                        
                     </div>
                 </div>
             </div>
@@ -27,10 +26,26 @@
             <dialog class="dialog">
                 <form method="dialog">
                     <input type="text" id="title" name="title" placeholder="add a task..">
+                    <input type="text" id="desc" name="description" placeholder="more details ..">
+                    <input type="date" id="dueDate" name="dueDate">
                     <button type="submit">Add</button>
                 </form>
             </dialog>
-            <div class="show-tasks"></div>
+            <dialog class="Pdialog">
+                <form method="dialog">
+                    <input type="text" id="proj" name="project" placeholder="add a project..">
+                    <button type="submit">Add New Project</button>
+                </form>
+            </dialog>
+                
+            
+            <div class="show-tasks">
+                <h2 class="proj-title">Please add a project to begin</h2>
+                <div class="task-group"></div>
+                
+                
+            </div>
+            <button class="add-task-list">Add task</button>
         </div>
     </div>
 </body>

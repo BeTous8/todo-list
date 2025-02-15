@@ -15,18 +15,13 @@ class Project {
         return this.task;
     }
 
-    getTaskTitles() {
-        const taskArr = [];
-        
-        this.task.forEach(item => {
-            taskArr.push(item['title'])
-    })
-    return taskArr;
+    deleteTask(index) {
+        this.task.splice(index, 1)
     }
 }
 
 function projectManager() {
-    const projects = [];
+    let projects = [];
 
 
     function createProject(projectName) {
@@ -39,8 +34,18 @@ function projectManager() {
         return projects;
     }
 
+    function projectFinder(projectName) {
+        // loop through all the projects if one of them match the given one then return that project
+        return projects.find(item => item.name === projectName);
+    }
 
-    return {createProject, getAllProjects}
+    function removeProject(projectName) {
+        projects = projects.filter(item => item.name !== projectName);
+        return projects;
+    }
+
+
+    return {createProject, getAllProjects, projectFinder, removeProject}
 }
 
 export {Project, projectManager}
