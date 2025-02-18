@@ -1,4 +1,5 @@
-import {Todo} from "./tasks"
+import {Todo} from "./tasks";
+
 
 class Project {
     constructor(name) {
@@ -25,14 +26,17 @@ function projectManager() {
 
 
     function createProject(projectName) {
-        const newProject = new Project(projectName)
+        const newProject = new Project(projectName) 
         projects.push(newProject);
+        // saveToLocalStorage();
         return newProject
     }
 
     function getAllProjects() {
         return projects;
     }
+
+    
 
     function projectFinder(projectName) {
         // loop through all the projects if one of them match the given one then return that project
@@ -41,11 +45,16 @@ function projectManager() {
 
     function removeProject(projectName) {
         projects = projects.filter(item => item.name !== projectName);
+        // saveToLocalStorage(); 
         return projects;
     }
 
+    function clearProjects() {
+        projects = [];
+    }
 
-    return {createProject, getAllProjects, projectFinder, removeProject}
+
+    return {createProject, getAllProjects, projectFinder, removeProject, clearProjects}
 }
 
 export {Project, projectManager}

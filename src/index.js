@@ -4,8 +4,15 @@ import {Project, projectManager} from "./projects";
 import "./dom-stuff";
 
 
+// const projTitle = document.querySelector('.proj-title');
+// const listOfTasks = document.querySelector('.show-tasks');
 
+// const manager = projectManager();
 
+// const currentProject = manager.createProject('Home');
+
+// projTitle.innerHTML = `${currentProject['name']}`;
+// listOfTasks.append(projTitle);
 
 
 

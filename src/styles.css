@@ -7,6 +7,12 @@
   * {
     margin: 0;
   }
+
+  :root {
+    --sideBarColor : rgb(245, 244, 226);
+    --contentColor: rgb(250, 249, 249);;
+  }
+  
   
   body {
     
@@ -52,12 +58,12 @@
   }
 
   .sidebar {
-    background-color: rgb(221, 168, 221);
+    background-color: var(--sideBarColor);
     display: grid;
   }
 
   .content {
-    background-color: rgb(184, 241, 184);
+    background-color: var(--contentColor)
   }
 
   .sb-items {
@@ -156,11 +162,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
-    
+    border: none;
+    background-color: var(--sideBarColor);
+    cursor: grab;
+    transition: .2s ease-in-out;
+    border-radius: 5px;
+  }
+
+  .sb-pn:hover {
+    transform: scale(1.1);
   }
 
   .del-btn {
+    background-color: var(--sideBarColor);
     border: none;
     
     border-radius: 5px;
@@ -172,5 +186,5 @@
 }
 
   .del-btn:hover {
-    background-color: rgb(232, 255, 127);
+    background-color: rgb(255, 144, 127);
   }
