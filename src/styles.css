@@ -10,7 +10,9 @@
 
   :root {
     --sideBarColor : rgb(245, 244, 226);
-    --contentColor: rgb(250, 249, 249);;
+    --contentColor: rgb(250, 249, 249);
+    --projectItemsBG: rgb(255, 254, 199);
+    --trashBG: rgb(255, 117, 107);
   }
   
   
@@ -19,6 +21,8 @@
     line-height: 1.5;
     
     -webkit-font-smoothing: antialiased;
+    font-family: "Montserrat", serif;
+    font-size: 1.2rem;
   }
   
   
@@ -171,6 +175,7 @@
 
   .sb-pn:hover {
     transform: scale(1.1);
+    background-color: var(--projectItemsBG);
   }
 
   .del-btn {
@@ -183,8 +188,22 @@
   .del-btn img {
     width: 24px;
     height: 24px;
+    
 }
 
   .del-btn:hover {
-    background-color: rgb(255, 144, 127);
+    background-color: var(--trashBG);
+  }
+
+  .del-btn img:hover {
+    /* background-color: rgb(233, 233, 233); */
+  }
+
+
+  .p-high {
+    background-color: #ffd5d0;
+  }
+
+  .p-medium {
+    background-color: rgb(255, 255, 218);
   }

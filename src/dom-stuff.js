@@ -44,7 +44,7 @@ function loadFromLocalStorage() {
             const project = manager.createProject(projectData.name);
 
             projectData.task.forEach(taskData => {
-                project.addTask(new Todo(taskData.title, taskData.description, taskData.dueDate));
+                project.addTask(new Todo(taskData.title, taskData.description, taskData.dueDate, taskData.priority));
             });
             // displayNewProjectWithoutForm(project);
         });
@@ -203,12 +203,25 @@ function displayTasks(tasks) {
 
     tasks.forEach((task, index) => {
         const taskItem = document.createElement('div');
+        console.log(task.priority);
+
+        switch(task.priority) {
+            case 'high':
+              taskItem.classList.add('p-high');
+              break;
+            case 'medium':
+                taskItem.classList.add('p-medium');
+              break;
+            default:
+                taskItem.classList.add('p-low');
+          }
+
         taskItem.classList.add('task-item');
 
         taskItem.innerHTML = `
         <p><strong>${task.title}</strong></p><br>
         <p>Due: ${task.dueDate}</p><br>
-
+        <p>Priority: ${task.priority}</p>
         `;
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('del-btn')
@@ -241,6 +254,8 @@ function addTaskToProject(event) {
     const title = document.querySelector('#title').value;
     const description = document.querySelector('#desc').value;
     const dueDateInput = document.querySelector('#dueDate').value;
+    const priority = document.querySelector('#priority').value;
+    console.log(priority)
 
     console.log(dueDateInput)
 
@@ -252,7 +267,7 @@ function addTaskToProject(event) {
 
     const formattedDate = format(new Date(dueDateInput), 'MMM d, yyyy');
 
-    currentProject.addTask(new Todo(title, description, formattedDate));
+    currentProject.addTask(new Todo(title, description, formattedDate, priority));
 
     saveToLocalStorage();
 
