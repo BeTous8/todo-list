@@ -26,17 +26,21 @@ function saveToLocalStorage() {
     localStorage.setItem('projects', JSON.stringify(allProjectList))
 };
 
+
 function loadFromLocalStorage() {
     const storedProjects = localStorage.getItem('projects');
-    console.log(storedProjects)
+    console.log(storedProjects);
+
+    projectList.textContent = '';
+    listOfTasks.textContent = '';
 
     if (storedProjects) {
-        allProjectList = JSON.parse(storedProjects);
+        const parsedProjects = JSON.parse(storedProjects);
         console.log(allProjectList)
 
         manager.clearProjects();
 
-        allProjectList.forEach(projectData => {
+        parsedProjects.forEach(projectData => {
             const project = manager.createProject(projectData.name);
 
             projectData.task.forEach(taskData => {
@@ -44,12 +48,20 @@ function loadFromLocalStorage() {
             });
             // displayNewProjectWithoutForm(project);
         });
+
+        //update allProjectList
+        allProjectList = manager.getAllProjects();
     }
     else {
         allProjectList = manager.getAllProjects();
     }
     
     // Ensure "Home" project exists only once
+    let homeProject = manager.projectFinder('Home');
+    if (!homeProject) {
+        homeProject = manager.createProject('Home');
+        allProjectList = manager.getAllProjects();
+    }
     // if (!allProjectList.some(proj => proj.name === "Home")) {
     //     const homeProject = manager.createProject("Home");
     //     allProjectList.unshift(homeProject);
@@ -57,6 +69,19 @@ function loadFromLocalStorage() {
     // }
 
     // saveToLocalStorage();  // Save the corrected project list
+
+
+    currentProject = homeProject;
+
+    // Update the UI
+    projTitle.innerHTML = currentProject.name;
+    listOfTasks.append(projTitle);
+    displayTasks(currentProject.task);
+
+    // Display all projects in the sidebar
+    allProjectList.forEach(project => {
+        displayNewProjectWithoutForm(project);
+    });
 }
     
 
@@ -123,8 +148,9 @@ function displayNewProject(event) {
 
     // create new instance of Project class
     currentProject = manager.createProject(projectTitle);
+    allProjectList = manager.getAllProjects();
     console.log(allProjectList)
-    // saveToLocalStorage();
+    saveToLocalStorage();
 
     projTitle.innerHTML = `${currentProject['name']}`;
     listOfTasks.append(projTitle);
@@ -153,7 +179,7 @@ function displayNewProject(event) {
         // delete a project
         deleteProjectItem.addEventListener('click', () => {
             allProjectList = manager.removeProject(newProjectItemTitle.textContent);
-            // saveToLocalStorage();
+            saveToLocalStorage();
             console.log(allProjectList)
             
             projTitle.innerHTML = ``;
@@ -195,7 +221,7 @@ function displayTasks(tasks) {
         deleteButton.addEventListener('click', () => {
             currentProject.deleteTask(index);
             displayTasks(currentProject.task); // Refresh UI after deleting task
-            // saveToLocalStorage()
+            saveToLocalStorage()
         
         });
         taskItem.append(deleteButton);
@@ -228,6 +254,8 @@ function addTaskToProject(event) {
 
     currentProject.addTask(new Todo(title, description, formattedDate));
 
+    saveToLocalStorage();
+
     displayTasks(currentProject.getTasks());
 
     dialog.querySelector("form").reset();
@@ -237,11 +265,23 @@ function addTaskToProject(event) {
 function displayNewProjectWithoutForm(project) {
     const { newProjectItem, newProjectItemTitle, deleteProjectItem } = createProjectElement(project);
 
-    projectList.append(newProjectItem);
+    newProjectItem.addEventListener('click', () => {
+        listOfTasks.textContent = ''
+        currentProject = manager.projectFinder(newProjectItemTitle.innerHTML); 
+        if (currentProject) {
+            projTitle.innerHTML = `${currentProject['name']}`;
+            listOfTasks.append(projTitle);
+            displayTasks(currentProject.task);
+            // saveToLocalStorage()
+        }
+    });
+
+    
 
     // delete a project
     deleteProjectItem.addEventListener('click', () => {
     allProjectList = manager.removeProject(newProjectItemTitle.textContent);
+    saveToLocalStorage();
     console.log(allProjectList)
     
     projTitle.innerHTML = ``;
@@ -249,15 +289,18 @@ function displayNewProjectWithoutForm(project) {
     newProjectItem.remove();
     
     });
+
+    projectList.append(newProjectItem);
 }
 
 function initializeHomeProject() {
-    loadFromLocalStorage();
+    // loadFromLocalStorage();
 
     let homeProject = manager.projectFinder('Home');
 
     if (!homeProject) {
         currentProject = manager.createProject('Home');
+        allProjectList = manager.getAllProjects();
     }
     else {
         currentProject = homeProject;
@@ -266,7 +309,8 @@ function initializeHomeProject() {
     projTitle.innerHTML = currentProject.name;
     listOfTasks.append(projTitle);
 
-    displayNewProjectWithoutForm(currentProject);
+    // displayNewProjectWithoutForm(currentProject);
+    displayTasks(currentProject.task);
 }
 
 // when we add a new project
@@ -275,4 +319,10 @@ Pdialog.addEventListener('submit', displayNewProject)
 dialog.addEventListener('submit', addTaskToProject)
 
 
-initializeHomeProject()
+
+function initializeApp() {
+    loadFromLocalStorage(); // Load data from localStorage
+    initializeHomeProject(); // Set up the "Home" project
+}
+
+initializeApp();
