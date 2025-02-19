@@ -1,91 +1,85 @@
-import {Project, projectManager} from "./projects";
-import {Todo} from "./tasks"
-import { format } from 'date-fns';
-import trashIcon from './trash-can-outline.svg';
+import { projectManager } from "./projects";
+import { Todo } from "./tasks";
+import { format } from "date-fns";
+import trashIcon from "./trash-can-outline.svg";
 
-
-
-
-const addProjectBtn = document.querySelector('.add-sign');
-const addTaskBtn = document.querySelector('.add-task');
-const addTaskBtnOnList = document.querySelector('.add-task-list');
-const content = document.querySelector('.content');
-const dialog = document.querySelector('.dialog');
-const Pdialog = document.querySelector('.Pdialog');
-const listOfTasks = document.querySelector('.show-tasks');
-const taskGroup = document.querySelector('.task-group')
-const tasks = document.querySelector('.tasks');
-const projTitle = document.querySelector('.proj-title');
-const projectList = document.querySelector('.project-list');
-
-
-
-
+const addProjectBtn = document.querySelector(".add-sign");
+const addTaskBtn = document.querySelector(".add-task");
+const addTaskBtnOnList = document.querySelector(".add-task-list");
+const content = document.querySelector(".content");
+const dialog = document.querySelector(".dialog");
+const Pdialog = document.querySelector(".Pdialog");
+const listOfTasks = document.querySelector(".show-tasks");
+const taskGroup = document.querySelector(".task-group");
+const tasks = document.querySelector(".tasks");
+const projTitle = document.querySelector(".proj-title");
+const projectList = document.querySelector(".project-list");
 
 function saveToLocalStorage() {
-    localStorage.setItem('projects', JSON.stringify(allProjectList))
-};
-
+  localStorage.setItem("projects", JSON.stringify(allProjectList));
+}
 
 function loadFromLocalStorage() {
-    const storedProjects = localStorage.getItem('projects');
-    console.log(storedProjects);
+  const storedProjects = localStorage.getItem("projects");
+  console.log(storedProjects);
 
-    projectList.textContent = '';
-    listOfTasks.textContent = '';
+  projectList.textContent = "";
+  listOfTasks.textContent = "";
 
-    if (storedProjects) {
-        const parsedProjects = JSON.parse(storedProjects);
-        console.log(allProjectList)
+  if (storedProjects) {
+    const parsedProjects = JSON.parse(storedProjects);
+    console.log(allProjectList);
 
-        manager.clearProjects();
+    manager.clearProjects();
 
-        parsedProjects.forEach(projectData => {
-            const project = manager.createProject(projectData.name);
+    parsedProjects.forEach((projectData) => {
+      const project = manager.createProject(projectData.name);
 
-            projectData.task.forEach(taskData => {
-                project.addTask(new Todo(taskData.title, taskData.description, taskData.dueDate, taskData.priority));
-            });
-            // displayNewProjectWithoutForm(project);
-        });
-
-        //update allProjectList
-        allProjectList = manager.getAllProjects();
-    }
-    else {
-        allProjectList = manager.getAllProjects();
-    }
-    
-    // Ensure "Home" project exists only once
-    let homeProject = manager.projectFinder('Home');
-    if (!homeProject) {
-        homeProject = manager.createProject('Home');
-        allProjectList = manager.getAllProjects();
-    }
-    // if (!allProjectList.some(proj => proj.name === "Home")) {
-    //     const homeProject = manager.createProject("Home");
-    //     allProjectList.unshift(homeProject);
-    //     displayNewProjectWithoutForm(homeProject);
-    // }
-
-    // saveToLocalStorage();  // Save the corrected project list
-
-
-    currentProject = homeProject;
-
-    // Update the UI
-    projTitle.innerHTML = currentProject.name;
-    listOfTasks.append(projTitle);
-    displayTasks(currentProject.task);
-
-    // Display all projects in the sidebar
-    allProjectList.forEach(project => {
-        displayNewProjectWithoutForm(project);
+      projectData.task.forEach((taskData) => {
+        project.addTask(
+          new Todo(
+            taskData.title,
+            taskData.description,
+            taskData.dueDate,
+            taskData.priority,
+          ),
+        );
+      });
+      // displayNewProjectWithoutForm(project);
     });
+
+    //update allProjectList
+    allProjectList = manager.getAllProjects();
+  } else {
+    allProjectList = manager.getAllProjects();
+  }
+
+  // Ensure "Home" project exists only once
+  let homeProject = manager.projectFinder("Home");
+  if (!homeProject) {
+    homeProject = manager.createProject("Home");
+    allProjectList = manager.getAllProjects();
+  }
+  // if (!allProjectList.some(proj => proj.name === "Home")) {
+  //     const homeProject = manager.createProject("Home");
+  //     allProjectList.unshift(homeProject);
+  //     displayNewProjectWithoutForm(homeProject);
+  // }
+
+  // saveToLocalStorage();  // Save the corrected project list
+
+  currentProject = homeProject;
+
+  // Update the UI
+  projTitle.innerHTML = currentProject.name;
+  listOfTasks.append(projTitle);
+  displayTasks(currentProject.task);
+
+  // Display all projects in the sidebar
+  allProjectList.forEach((project) => {
+    displayNewProjectWithoutForm(project);
+  });
 }
-    
-
-
 
 const manager = projectManager();
 let currentProject = null;
@@ -94,250 +88,224 @@ let allProjectList;
 // allProjectList = (loadFromLocalStorage() || manager.getAllProjects());
 // allProjectList = loadFromLocalStorage();
 
-console.log(allProjectList)
+console.log(allProjectList);
 
-
-
-addProjectBtn.addEventListener('click', () => {
-    Pdialog.showModal();
-})
-
-addTaskBtn.addEventListener('click', () => {
-    dialog.showModal();
+addProjectBtn.addEventListener("click", () => {
+  Pdialog.showModal();
 });
 
-addTaskBtnOnList.addEventListener('click', () => {
-    dialog.showModal();
+addTaskBtn.addEventListener("click", () => {
+  dialog.showModal();
 });
 
-
+addTaskBtnOnList.addEventListener("click", () => {
+  dialog.showModal();
+});
 
 function createProjectElement(project) {
-    const newProjectItem = document.createElement('button');
-    newProjectItem.classList.add('sb-pn');
+  const newProjectItem = document.createElement("button");
+  newProjectItem.classList.add("sb-pn");
 
-    const newProjectItemTitle = document.createElement('p');
-    newProjectItemTitle.innerHTML = `${project['name']}`;
+  const newProjectItemTitle = document.createElement("p");
+  newProjectItemTitle.innerHTML = `${project["name"]}`;
 
-    const deleteProjectItem = document.createElement('button');
-    deleteProjectItem.classList.add('del-btn');
+  const deleteProjectItem = document.createElement("button");
+  deleteProjectItem.classList.add("del-btn");
 
-    const trashImg = document.createElement('img');
-    trashImg.src = `${trashIcon}`;
-    deleteProjectItem.append(trashImg);
+  const trashImg = document.createElement("img");
+  trashImg.src = `${trashIcon}`;
+  deleteProjectItem.append(trashImg);
 
-    newProjectItem.append(newProjectItemTitle, deleteProjectItem);
+  newProjectItem.append(newProjectItemTitle, deleteProjectItem);
 
-    return { newProjectItem, newProjectItemTitle, deleteProjectItem };
+  return { newProjectItem, newProjectItemTitle, deleteProjectItem };
 }
 
-
-
-
-
-
 function displayNewProject(event) {
-    event.preventDefault();
-    listOfTasks.textContent = '';
-    projectList.textContent = '';
-    console.log(allProjectList)
+  event.preventDefault();
+  listOfTasks.textContent = "";
+  projectList.textContent = "";
+  console.log(allProjectList);
 
-    // take the input value from the form when it is submitted
-    // instead of this we can also get the value from the project list in the backend
-    const projectTitle = document.querySelector('#proj').value;
+  // take the input value from the form when it is submitted
+  // instead of this we can also get the value from the project list in the backend
+  const projectTitle = document.querySelector("#proj").value;
 
-    // create new instance of Project class
-    currentProject = manager.createProject(projectTitle);
-    allProjectList = manager.getAllProjects();
-    console.log(allProjectList)
-    saveToLocalStorage();
+  // create new instance of Project class
+  currentProject = manager.createProject(projectTitle);
+  allProjectList = manager.getAllProjects();
+  console.log(allProjectList);
+  saveToLocalStorage();
 
-    projTitle.innerHTML = `${currentProject['name']}`;
-    listOfTasks.append(projTitle);
-    
-    // create a new list on the sidebar under My Project section
-    allProjectList.forEach(project => {
+  projTitle.innerHTML = `${currentProject["name"]}`;
+  listOfTasks.append(projTitle);
 
-        const { newProjectItem, newProjectItemTitle, deleteProjectItem } = createProjectElement(project);
+  // create a new list on the sidebar under My Project section
+  allProjectList.forEach((project) => {
+    const { newProjectItem, newProjectItemTitle, deleteProjectItem } =
+      createProjectElement(project);
 
-        projectList.append(newProjectItem);
+    projectList.append(newProjectItem);
 
-        // show the project and its tasks when a project is clicked from the My Project list
-        newProjectItem.addEventListener('click', () => {
-            listOfTasks.textContent = ''
-            currentProject = manager.projectFinder(newProjectItemTitle.innerHTML); 
-            if (currentProject) {
-                projTitle.innerHTML = `${currentProject['name']}`;
-                listOfTasks.append(projTitle);
-                displayTasks(currentProject.task);
-                // saveToLocalStorage()
-            }
-        });
-
-
-
-        // delete a project
-        deleteProjectItem.addEventListener('click', () => {
-            allProjectList = manager.removeProject(newProjectItemTitle.textContent);
-            saveToLocalStorage();
-            console.log(allProjectList)
-            
-            projTitle.innerHTML = ``;
-            taskGroup.textContent = '';
-            newProjectItem.remove();
-            
-            
-        });
+    // show the project and its tasks when a project is clicked from the My Project list
+    newProjectItem.addEventListener("click", () => {
+      listOfTasks.textContent = "";
+      currentProject = manager.projectFinder(newProjectItemTitle.innerHTML);
+      if (currentProject) {
+        projTitle.innerHTML = `${currentProject["name"]}`;
+        listOfTasks.append(projTitle);
+        displayTasks(currentProject.task);
+        // saveToLocalStorage()
+      }
     });
 
-    
-    
-    Pdialog.querySelector("form").reset();
-    Pdialog.close();
+    // delete a project
+    deleteProjectItem.addEventListener("click", () => {
+      allProjectList = manager.removeProject(newProjectItemTitle.textContent);
+      saveToLocalStorage();
+      console.log(allProjectList);
+
+      projTitle.innerHTML = ``;
+      taskGroup.textContent = "";
+      newProjectItem.remove();
+    });
+  });
+
+  Pdialog.querySelector("form").reset();
+  Pdialog.close();
 }
 
 function displayTasks(tasks) {
-    taskGroup.textContent = '';
+  taskGroup.textContent = "";
 
-    console.log(`Tasks: ${tasks}`);
+  console.log(`Tasks: ${tasks}`);
 
-    tasks.forEach((task, index) => {
-        const taskItem = document.createElement('div');
-        console.log(task.priority);
+  tasks.forEach((task, index) => {
+    const taskItem = document.createElement("div");
+    console.log(task.priority);
 
-        switch(task.priority) {
-            case 'high':
-              taskItem.classList.add('p-high');
-              break;
-            case 'medium':
-                taskItem.classList.add('p-medium');
-              break;
-            default:
-                taskItem.classList.add('p-low');
-          }
+    switch (task.priority) {
+      case "high":
+        taskItem.classList.add("p-high");
+        break;
+      case "medium":
+        taskItem.classList.add("p-medium");
+        break;
+      default:
+        taskItem.classList.add("p-low");
+    }
 
-        taskItem.classList.add('task-item');
+    taskItem.classList.add("task-item");
 
-        taskItem.innerHTML = `
+    taskItem.innerHTML = `
         <p><strong>${task.title}</strong></p><br>
         <p>Due: ${task.dueDate}</p><br>
         <p>Priority: ${task.priority}</p>
         `;
-        const deleteButton = document.createElement('button');
-        deleteButton.classList.add('del-btn')
-        const trashImg = document.createElement('img');
-        trashImg.src = `${trashIcon}`;
-        
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("del-btn");
+    const trashImg = document.createElement("img");
+    trashImg.src = `${trashIcon}`;
 
-        deleteButton.append(trashImg);
-        // deleteButton.innerText = 'Delete';
-        deleteButton.addEventListener('click', () => {
-            currentProject.deleteTask(index);
-            displayTasks(currentProject.task); // Refresh UI after deleting task
-            saveToLocalStorage()
-        
-        });
-        taskItem.append(deleteButton);
-        taskGroup.append(taskItem)
+    deleteButton.append(trashImg);
+    // deleteButton.innerText = 'Delete';
+    deleteButton.addEventListener("click", () => {
+      currentProject.deleteTask(index);
+      displayTasks(currentProject.task); // Refresh UI after deleting task
+      saveToLocalStorage();
     });
-    listOfTasks.append(taskGroup);
-
+    taskItem.append(deleteButton);
+    taskGroup.append(taskItem);
+  });
+  listOfTasks.append(taskGroup);
 }
 
-
-
 function addTaskToProject(event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    if (!currentProject) return;
+  if (!currentProject) return;
 
-    const title = document.querySelector('#title').value;
-    const description = document.querySelector('#desc').value;
-    const dueDateInput = document.querySelector('#dueDate').value;
-    const priority = document.querySelector('#priority').value;
-    console.log(priority)
+  const title = document.querySelector("#title").value;
+  const description = document.querySelector("#desc").value;
+  const dueDateInput = document.querySelector("#dueDate").value;
+  const priority = document.querySelector("#priority").value;
+  console.log(priority);
 
-    console.log(dueDateInput)
+  console.log(dueDateInput);
 
-    if (!title || !dueDateInput) {
-        alert("Please enter a task and select a due date.");
-        return;
-    }
+  if (!title || !dueDateInput) {
+    alert("Please enter a task and select a due date.");
+    return;
+  }
 
+  const formattedDate = format(new Date(dueDateInput), "MMM d, yyyy");
 
-    const formattedDate = format(new Date(dueDateInput), 'MMM d, yyyy');
+  currentProject.addTask(new Todo(title, description, formattedDate, priority));
 
-    currentProject.addTask(new Todo(title, description, formattedDate, priority));
+  saveToLocalStorage();
 
-    saveToLocalStorage();
+  displayTasks(currentProject.getTasks());
 
-    displayTasks(currentProject.getTasks());
-
-    dialog.querySelector("form").reset();
-    dialog.close();
+  dialog.querySelector("form").reset();
+  dialog.close();
 }
 
 function displayNewProjectWithoutForm(project) {
-    const { newProjectItem, newProjectItemTitle, deleteProjectItem } = createProjectElement(project);
+  const { newProjectItem, newProjectItemTitle, deleteProjectItem } =
+    createProjectElement(project);
 
-    newProjectItem.addEventListener('click', () => {
-        listOfTasks.textContent = ''
-        currentProject = manager.projectFinder(newProjectItemTitle.innerHTML); 
-        if (currentProject) {
-            projTitle.innerHTML = `${currentProject['name']}`;
-            listOfTasks.append(projTitle);
-            displayTasks(currentProject.task);
-            // saveToLocalStorage()
-        }
-    });
+  newProjectItem.addEventListener("click", () => {
+    listOfTasks.textContent = "";
+    currentProject = manager.projectFinder(newProjectItemTitle.innerHTML);
+    if (currentProject) {
+      projTitle.innerHTML = `${currentProject["name"]}`;
+      listOfTasks.append(projTitle);
+      displayTasks(currentProject.task);
+      // saveToLocalStorage()
+    }
+  });
 
-    
-
-    // delete a project
-    deleteProjectItem.addEventListener('click', () => {
+  // delete a project
+  deleteProjectItem.addEventListener("click", () => {
     allProjectList = manager.removeProject(newProjectItemTitle.textContent);
     saveToLocalStorage();
-    console.log(allProjectList)
-    
-    projTitle.innerHTML = ``;
-    taskGroup.textContent = '';
-    newProjectItem.remove();
-    
-    });
+    console.log(allProjectList);
 
-    projectList.append(newProjectItem);
+    projTitle.innerHTML = ``;
+    taskGroup.textContent = "";
+    newProjectItem.remove();
+  });
+
+  projectList.append(newProjectItem);
 }
 
 function initializeHomeProject() {
-    // loadFromLocalStorage();
+  // loadFromLocalStorage();
 
-    let homeProject = manager.projectFinder('Home');
+  let homeProject = manager.projectFinder("Home");
 
-    if (!homeProject) {
-        currentProject = manager.createProject('Home');
-        allProjectList = manager.getAllProjects();
-    }
-    else {
-        currentProject = homeProject;
-    }
+  if (!homeProject) {
+    currentProject = manager.createProject("Home");
+    allProjectList = manager.getAllProjects();
+  } else {
+    currentProject = homeProject;
+  }
 
-    projTitle.innerHTML = currentProject.name;
-    listOfTasks.append(projTitle);
+  projTitle.innerHTML = currentProject.name;
+  listOfTasks.append(projTitle);
 
-    // displayNewProjectWithoutForm(currentProject);
-    displayTasks(currentProject.task);
+  // displayNewProjectWithoutForm(currentProject);
+  displayTasks(currentProject.task);
 }
 
 // when we add a new project
-Pdialog.addEventListener('submit', displayNewProject)
+Pdialog.addEventListener("submit", displayNewProject);
 
-dialog.addEventListener('submit', addTaskToProject)
-
-
+dialog.addEventListener("submit", addTaskToProject);
 
 function initializeApp() {
-    loadFromLocalStorage(); // Load data from localStorage
-    initializeHomeProject(); // Set up the "Home" project
+  loadFromLocalStorage(); // Load data from localStorage
+  initializeHomeProject(); // Set up the "Home" project
 }
 
 initializeApp();

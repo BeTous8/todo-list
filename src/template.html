@@ -1,63 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Macondo&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sriracha&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bangers&family=Macondo&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sriracha&display=swap"
+      rel="stylesheet"
+    />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="sidebar">
-            <div class="sb-items">
-                <button class="add-task">Add task</button>
-                <div class="my-projects">
-                    <div class="top-row">
-                        <h3 class="title">My Projects</h3>
-                        <button class="add-sign">Add project</button>
-                    </div>
-                    
-                    <div class="project-list">
-                        
-                    </div>
-                </div>
+      <div class="sidebar">
+        <div class="sb-items">
+          <button class="add-task">Add task</button>
+          <div class="my-projects">
+            <div class="top-row">
+              <h3 class="title">My Projects</h3>
+              <button class="add-sign">Add project</button>
             </div>
+
+            <div class="project-list"></div>
+          </div>
         </div>
-        <div class="content">
-            <dialog class="dialog">
-                <form method="dialog">
-                    <input type="text" id="title" name="title" placeholder="add a task..">
-                    <input type="text" id="desc" name="description" placeholder="more details ..">
-                    <div class="date-pri">
-                        <input type="date" id="dueDate" name="dueDate">
-                        <label for="priority">Priority</label>
-                        <select name="priority" id="priority">
-                            <option value="low" selected="selected">Low</option>
-                            <option value="medium">Medium</option>
-                            <option value="high">High</option>
-                        </select>
-                    </div>
-                    <button type="submit">Add</button>
-                </form>
-            </dialog>
-            <dialog class="Pdialog">
-                <form method="dialog">
-                    <input type="text" id="proj" name="project" placeholder="add a project..">
-                    <button type="submit">Add New Project</button>
-                </form>
-            </dialog>
-                
-            
-            <div class="show-tasks">
-                <h2 class="proj-title"></h2>
-                <div class="task-group"></div>
-                
-                
+      </div>
+      <div class="content">
+        <dialog class="dialog">
+          <form method="dialog">
+            <input
+              type="text"
+              id="title"
+              name="title"
+              placeholder="add a task.."
+            />
+            <input
+              type="text"
+              id="desc"
+              name="description"
+              placeholder="more details .."
+            />
+            <div class="date-pri">
+              <input type="date" id="dueDate" name="dueDate" />
+              <label for="priority">Priority</label>
+              <select name="priority" id="priority">
+                <option value="low" selected="selected">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
             </div>
-            <button class="add-task-list">Add task</button>
+            <button type="submit">Add</button>
+          </form>
+        </dialog>
+        <dialog class="Pdialog">
+          <form method="dialog">
+            <input
+              type="text"
+              id="proj"
+              name="project"
+              placeholder="add a project.."
+            />
+            <button type="submit">Add New Project</button>
+          </form>
+        </dialog>
+
+        <div class="show-tasks">
+          <h2 class="proj-title"></h2>
+          <div class="task-group"></div>
         </div>
+        <button class="add-task-list">Add task</button>
+      </div>
     </div>
-</body>
+  </body>
 </html>

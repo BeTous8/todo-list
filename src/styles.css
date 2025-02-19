@@ -1,209 +1,208 @@
-
-*, *::before, *::after {
-    box-sizing: border-box;
-  }
-  
-  
-  * {
-    margin: 0;
-  }
-
-  :root {
-    --sideBarColor : rgb(245, 244, 226);
-    --contentColor: rgb(250, 249, 249);
-    --projectItemsBG: rgb(255, 254, 199);
-    --trashBG: rgb(255, 117, 107);
-  }
-  
-  
-  body {
-    
-    line-height: 1.5;
-    
-    -webkit-font-smoothing: antialiased;
-    font-family: "Montserrat", serif;
-    font-size: 1.2rem;
-  }
-  
-  
-  img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
-  }
-  
-  
-  input, button, textarea, select {
-    font: inherit;
-  }
-  
-  
-  p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
-  }
-  
-  
-  p {
-    text-wrap: pretty;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    text-wrap: balance;
-  }
-  
-  
-  #root, #__next {
-    isolation: isolate;
-  }
-
-
-  .container {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    height: 100vh;
-  }
-
-  .sidebar {
-    background-color: var(--sideBarColor);
-    display: grid;
-  }
-
-  .content {
-    background-color: var(--contentColor)
-  }
-
-  .sb-items {
-    display: flex;
-    flex-direction: column;
-    margin: .8rem;
-    
-    
-   
-  }
-
-  .add-task {
-    
-    
-  }
-
-  .my-projects {
-    margin-top: 300px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .top-row {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .title {
-    
-  }
-
-  .project-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 0 auto;
-    margin-top: 30px;
-    width: 200px;
-  }
-
-
-  .dialog {
-    margin: 50px auto;
-  }
-
-  .dialog form {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-  }
-
-  .Pdialog {
-    margin: 400px auto;
-  }
-
-  .show-tasks {
-    display: grid;
-    grid-template-columns: repeat(20, 1fr);
-  }
-
-  .proj-title {
-    /* margin: 20px; */
-    grid-column: 2/12;
-
-  }
-
-  .task-group {
-    grid-column: 3/15;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    /* background-color: rgb(226, 224, 224); */
-    margin: 10px;
-    padding: 10px;
-  }
-
-  .task-item {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    background-color: rgb(246, 244, 244);
-    
-  }
-
-  .add-task-list {
-    margin: 10px 50px;
-  }
-
-  .tasks {
-    margin: 10px;
-    padding: 10px;
-  }
-
-
-  .sb-pn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: none;
-    background-color: var(--sideBarColor);
-    cursor: grab;
-    transition: .2s ease-in-out;
-    border-radius: 5px;
-  }
-
-  .sb-pn:hover {
-    transform: scale(1.1);
-    background-color: var(--projectItemsBG);
-  }
-
-  .del-btn {
-    background-color: var(--sideBarColor);
-    border: none;
-    
-    border-radius: 5px;
-  }
-
-  .del-btn img {
-    width: 24px;
-    height: 24px;
-    
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-  .del-btn:hover {
-    background-color: var(--trashBG);
-  }
+* {
+  margin: 0;
+}
 
-  .del-btn img:hover {
-    /* background-color: rgb(233, 233, 233); */
-  }
+:root {
+  --sideBarColor: rgb(245, 244, 226);
+  --contentColor: rgb(250, 249, 249);
+  --projectItemsBG: rgb(255, 254, 199);
+  --trashBG: rgb(255, 117, 107);
+}
 
+body {
+  line-height: 1.5;
 
-  .p-high {
-    background-color: #ffd5d0;
-  }
+  -webkit-font-smoothing: antialiased;
+  font-family: "Montserrat", serif;
+  font-size: 1.2rem;
+}
 
-  .p-medium {
-    background-color: rgb(255, 255, 218);
-  }
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  height: 100vh;
+}
+
+.sidebar {
+  background-color: var(--sideBarColor);
+  display: grid;
+}
+
+.content {
+  background-color: var(--contentColor);
+}
+
+.sb-items {
+  display: flex;
+  flex-direction: column;
+  margin: 0.8rem;
+}
+
+.add-task {
+}
+
+.my-projects {
+  margin-top: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+}
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto;
+  margin-top: 30px;
+  width: 200px;
+}
+
+.dialog {
+  margin: 50px auto;
+}
+
+.dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.Pdialog {
+  margin: 400px auto;
+}
+
+.show-tasks {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+}
+
+.proj-title {
+  /* margin: 20px; */
+  grid-column: 2/12;
+}
+
+.task-group {
+  grid-column: 3/15;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  /* background-color: rgb(226, 224, 224); */
+  margin: 10px;
+  padding: 10px;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  background-color: rgb(246, 244, 244);
+}
+
+.add-task-list {
+  margin: 10px 50px;
+}
+
+.tasks {
+  margin: 10px;
+  padding: 10px;
+}
+
+.sb-pn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  background-color: var(--sideBarColor);
+  cursor: grab;
+  transition: 0.2s ease-in-out;
+  border-radius: 5px;
+}
+
+.sb-pn:hover {
+  transform: scale(1.1);
+  background-color: var(--projectItemsBG);
+}
+
+.del-btn {
+  background-color: var(--sideBarColor);
+  border: none;
+
+  border-radius: 5px;
+}
+
+.del-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+.del-btn:hover {
+  background-color: var(--trashBG);
+}
+
+.del-btn img:hover {
+  /* background-color: rgb(233, 233, 233); */
+}
+
+.p-high {
+  background-color: #ffd5d0;
+}
+
+.p-medium {
+  background-color: rgb(255, 255, 218);
+}
