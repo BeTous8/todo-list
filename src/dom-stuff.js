@@ -95,12 +95,25 @@ addProjectBtn.addEventListener("click", () => {
 });
 
 addTaskBtn.addEventListener("click", () => {
+  positionModal(addTaskBtn);
   dialog.showModal();
 });
 
 addTaskBtnOnList.addEventListener("click", () => {
+  positionModal(addTaskBtnOnList);
   dialog.showModal();
 });
+
+
+
+function positionModal(button) {
+  // Get the position of the button
+  const buttonRect = button.getBoundingClientRect();
+  const offset = -35;
+  // Position the modal below the button
+  dialog.style.top = `${buttonRect.bottom + window.scrollY + offset}px`; // Add window.scrollY to account for scrolling
+  dialog.style.left = `${buttonRect.left + window.scrollX}px`; // Add window.scrollX to account for scrolling
+}
 
 function createProjectElement(project) {
   const newProjectItem = document.createElement("button");

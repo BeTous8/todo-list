@@ -42,13 +42,14 @@
               placeholder="more details .."
             />
             <div class="date-pri">
+              <label for="dueDate">Due on:</label>
               <input type="date" id="dueDate" name="dueDate" />
-              <label for="priority">Priority</label>
-              <select name="priority" id="priority">
-                <option value="low" selected="selected">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-              </select>
+              <label for="priority">Priority:
+                <select name="priority" id="priority">
+                  <option value="low" selected="selected">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select></label>
             </div>
             <button type="submit">Add</button>
           </form>
@@ -65,11 +66,21 @@
           </form>
         </dialog>
 
-        <div class="show-tasks">
-          <h2 class="proj-title"></h2>
-          <div class="task-group"></div>
+        <div class="task-container">
+          <div class="task-output">
+            <div class="show-tasks">
+              <h2 class="proj-title"></h2>
+              <div class="task-group"></div>
+            </div>
+          </div>
+          <div class="task-input">
+            <!-- <input type="input" name="new-task" id="new-task" placeholder="do the lundry"> -->
+            <button class="add-task-list">Add task</button>
+          </div>
         </div>
-        <button class="add-task-list">Add task</button>
+        
+        
+        
       </div>
     </div>
   </body>

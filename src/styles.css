@@ -9,9 +9,9 @@
 }
 
 :root {
-  --sideBarColor: rgb(245, 244, 226);
+  --sideBarColor: rgb(255, 253, 209);
   --contentColor: rgb(250, 249, 249);
-  --projectItemsBG: rgb(255, 254, 199);
+  --projectItemsBG: rgb(202, 255, 206);
   --trashBG: rgb(255, 117, 107);
 }
 
@@ -87,7 +87,20 @@ h6 {
   margin: 0.8rem;
 }
 
-.add-task {
+.add-task,
+.add-task-list,
+.add-sign,
+.dialog form button {
+  border-radius: 10px;
+}
+
+.add-task:hover,
+.add-task-list:hover,
+.add-sign:hover,
+.dialog form button:hover {
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.55);
+  background-color: rgb(55, 54, 54);
+  color: white;
 }
 
 .my-projects {
@@ -114,13 +127,66 @@ h6 {
 }
 
 .dialog {
-  margin: 50px auto;
+  position: absolute; /* Position the modal absolutely */
+  top: 0; /* Default top position */
+  left: 0; /* Default left position */
+  display: none; /* Hide the modal by default */
+  border-radius: 10px;
+  border-color: #ccc;
+  animation: dropDown 0.3s ease-in-out;
+  width: 50%;
+}
+
+.dialog[open] {
+  display: block; /* Show the modal when it's open */
+}
+
+.dialog::backdrop {
+  background: none; /* Remove the default dark backdrop */
+}
+
+.add-task-list {
+  margin: 10px 20px;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  background-color: rgb(246, 244, 244);
 }
 
 .dialog form {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  color: #7b7b7b;
+}
+
+.dialog form #title{
+  width: 40%;
+  border: none;
+}
+
+.dialog form #title:focus,
+.dialog form #desc:focus {
+  outline: 1px solid #ccc; /* Add a custom border on focus (optional) */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.dialog form #desc {
+  border: none;
+}
+
+.dialog form button {
+  align-self: flex-start;
+  width: 20%;
+  background-color: #ccc;
+}
+
+.date-pri {
+  display: flex;
+  gap: 20px;
 }
 
 .Pdialog {
@@ -138,7 +204,7 @@ h6 {
 }
 
 .task-group {
-  grid-column: 3/15;
+  grid-column: 1/19;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -147,16 +213,11 @@ h6 {
   padding: 10px;
 }
 
-.task-item {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  background-color: rgb(246, 244, 244);
-}
 
-.add-task-list {
-  margin: 10px 50px;
-}
+
+
+
+
 
 .tasks {
   margin: 10px;
@@ -205,4 +266,26 @@ h6 {
 
 .p-medium {
   background-color: rgb(255, 255, 218);
+}
+
+
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes dropDown {
+  from {
+      transform: translateY(10%); 
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0); /* End at the original position */
+      opacity: 1; /* Fade in to full opacity */
+  }
 }
