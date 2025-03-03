@@ -11,6 +11,10 @@ class Project {
     this.task.push(task);
   }
 
+  taskFinder(id) {
+    return this.task.find(item => item.id === id);
+  }
+
   getTasks() {
     return this.task;
   }

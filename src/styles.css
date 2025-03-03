@@ -9,7 +9,7 @@
 }
 
 :root {
-  --sideBarColor: rgb(255, 253, 209);
+  --sideBarColor: rgba(236, 233, 233, 0.719);
   --contentColor: rgb(250, 249, 249);
   --projectItemsBG: rgb(202, 255, 206);
   --trashBG: rgb(255, 117, 107);
@@ -20,7 +20,7 @@ body {
 
   -webkit-font-smoothing: antialiased;
   font-family: "Montserrat", serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 img,
@@ -165,8 +165,17 @@ h6 {
 .task-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 50px;
   margin-top: 20px;
-  background-color: rgb(246, 244, 244);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+  transition: .3s ease-in-out;
+}
+
+.task-item:hover {
+  transform: translateY(-3px);
 }
 
 .dialog form {
@@ -224,6 +233,8 @@ h6 {
   /* background-color: rgb(226, 224, 224); */
   margin: 10px;
   padding: 10px;
+  border-radius: 5px;
+  /* outline: 1px red solid; */
 }
 
 
@@ -235,6 +246,7 @@ h6 {
 .tasks {
   margin: 10px;
   padding: 10px;
+  outline: 1px red solid;
 }
 
 .sb-pn {
@@ -253,32 +265,44 @@ h6 {
   background-color: var(--projectItemsBG);
 }
 
-.del-btn {
-  background-color: var(--sideBarColor);
-  border: none;
-
-  border-radius: 5px;
+.btn-container {
+  display: flex;
+  gap: 5px;
 }
 
-.del-btn img {
+.del-btn,
+.edit-btn {
+  border: none;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.del-btn img,
+.edit-btn img {
   width: 24px;
   height: 24px;
+}
+
+.edit-btn:hover {
+  background-color: var(--sideBarColor);
 }
 
 .del-btn:hover {
   background-color: var(--trashBG);
 }
 
+
+
 .del-btn img:hover {
   /* background-color: rgb(233, 233, 233); */
 }
 
 .p-high {
-  background-color: #ffd5d0;
+  background-color: #ffd5d0cc;
 }
 
 .p-medium {
-  background-color: rgb(255, 255, 218);
+  background-color: rgba(255, 255, 218, 0.74);
 }
 
 

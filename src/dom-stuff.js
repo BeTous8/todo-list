@@ -2,12 +2,14 @@ import { projectManager } from "./projects";
 import { Todo } from "./tasks";
 import { format } from "date-fns";
 import trashIcon from "./trash-can-outline.svg";
+import pencilIcon from "./pencil.svg"
 
 const addProjectBtn = document.querySelector(".add-sign");
 const addTaskBtn = document.querySelector(".add-task");
 const addTaskBtnOnList = document.querySelector(".add-task-list");
 const content = document.querySelector(".content");
 const dialog = document.querySelector(".dialog");
+const editDialog = document.querySelector(".edit-dialog")
 const Pdialog = document.querySelector(".Pdialog");
 const listOfTasks = document.querySelector(".show-tasks");
 const taskGroup = document.querySelector(".task-group");
@@ -193,7 +195,8 @@ function displayTasks(tasks) {
 
   console.log(`Tasks: ${tasks}`);
 
-  tasks.forEach((task, index) => {
+  for (let i = 0; i < tasks.length; i++) {
+    const task = tasks[i];
     const taskItem = document.createElement("div");
     console.log(task.priority);
 
@@ -215,22 +218,91 @@ function displayTasks(tasks) {
         <p>Due: ${task.dueDate}</p><br>
         <p>Priority: ${task.priority}</p>
         `;
+    
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("btn-container");
+
+    const editButton = document.createElement("button");
+    editButton.classList.add("edit-btn");
+    const editImage = document.createElement("img");
+    editImage.src = `${pencilIcon}`;
+
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("del-btn");
     const trashImg = document.createElement("img");
     trashImg.src = `${trashIcon}`;
 
+    editButton.append(editImage);
     deleteButton.append(trashImg);
     // deleteButton.innerText = 'Delete';
+
+    buttonContainer.append(editButton, deleteButton);
+    
+    editButton.addEventListener("click", () => {
+      document.querySelector("#ed-title").value = task.title;
+      document.querySelector("#ed-desc").value = task.description;
+      document.querySelector("#ed-dueDate").value = task.dueDate;
+      document.querySelector("#ed-priority").value = task.priority;
+      // positionModal(editButton);
+      editDialog.showModal();
+
+      // Save the edited task
+      const saveBtn = document.querySelector('.save-btn');
+
+      const newSaveBtn = saveBtn.cloneNode(true); // Clone the button to remove event listeners
+      saveBtn.replaceWith(newSaveBtn);
+
+
+      newSaveBtn.addEventListener("click", () => {
+        editTaskToProject(task);
+        console.log("task order:", currentProject.getTasks());
+        displayTasks(currentProject.task);
+      });
+      
+    })
+    saveToLocalStorage();
+    
+  
+
     deleteButton.addEventListener("click", () => {
-      currentProject.deleteTask(index);
+      currentProject.deleteTask(i);
       displayTasks(currentProject.task); // Refresh UI after deleting task
       saveToLocalStorage();
     });
-    taskItem.append(deleteButton);
+    taskItem.append(buttonContainer);
     taskGroup.append(taskItem);
-  });
+    
+  };
   listOfTasks.append(taskGroup);
+}
+
+function editTaskToProject (task) {
+  console.log("=== Debugging: editTaskToProject ===");
+
+  console.log("Task being edited:", task);
+  console.log("Task ID:", task.id);
+
+  console.log("All tasks before editing:", currentProject.getTasks());
+
+  const edditedTask = currentProject.taskFinder(task.id);
+  console.log("Edited Task (found by ID):", edditedTask);
+  if (!edditedTask) return;
+
+  edditedTask.title = document.querySelector("#ed-title").value;
+  edditedTask.description = document.querySelector("#ed-desc").value;
+  edditedTask.dueDate = document.querySelector("#ed-dueDate").value;
+  edditedTask.priority = document.querySelector("#ed-priority").value;
+
+  console.log("All tasks after editing:", currentProject.getTasks());
+  // const formattedDate = format(new Date(edditedTask.dueDate), "MMM d, yyyy");
+  // currentProject.addTask(new Todo(title, description, formattedDate, priority));
+  saveToLocalStorage();
+
+  
+
+  editDialog.close();
+
+  console.log("=== End of Debugging ===");
 }
 
 function addTaskToProject(event) {
@@ -322,3 +394,67 @@ function initializeApp() {
 }
 
 initializeApp();
+
+
+
+
+
+
+
+
+
+
+
+
+// function displayEdittedTasks(tasks) {
+//   // taskGroup.textContent = "";
+
+//   // console.log(`Tasks: ${tasks}`);
+
+//   tasks.forEach((task, index) => {
+//     const taskItem = document.querySelector(".task-item");
+//     console.log(task.priority);
+
+//     switch (task.priority) {
+//       case "high":
+//         taskItem.classList.add("p-high");
+//         break;
+//       case "medium":
+//         taskItem.classList.add("p-medium");
+//         break;
+//       default:
+//         taskItem.classList.add("p-low");
+//     }
+
+//     // taskItem.classList.add("task-item");
+
+//     taskItem.innerHTML = `
+//         <p><strong>${task.title}</strong></p><br>
+//         <p>Due: ${task.dueDate}</p><br>
+//         <p>Priority: ${task.priority}</p>
+//         `;
+    
+//     const buttonContainer = document.querySelector(".btn-container");
+//     // buttonContainer.classList.add("btn-container");
+
+//     const editButton = document.querySelector(".edit-btn");
+//     // editButton.classList.add("edit-btn");
+//     const editImage = document.createElement("img");
+//     editImage.src = `${pencilIcon}`;
+
+//     const deleteButton = document.createElement("button");
+//     deleteButton.classList.add("del-btn");
+//     const trashImg = document.createElement("img");
+//     trashImg.src = `${trashIcon}`;
+
+//     editButton.append(editImage);
+//     deleteButton.append(trashImg);
+//     // deleteButton.innerText = 'Delete';
+
+//     buttonContainer.append(editButton, deleteButton)
+
+//     taskItem.append(buttonContainer);
+//     taskGroup.append(taskItem);
+//   });
+//   listOfTasks.append(taskGroup);
+//}

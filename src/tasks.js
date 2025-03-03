@@ -5,7 +5,7 @@ class Todo {
     dueDate = "No due date",
     priority = "Low",
   ) {
-    this.id = Date.now();
+    this.id = Date.now() + Math.random(); // Ensure unique ID;
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;

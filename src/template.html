@@ -15,7 +15,7 @@
     <div class="container">
       <div class="sidebar">
         <div class="sb-items">
-          <h3>Todo List</h3>
+          <h4>Todo List</h4>
           <button class="add-task">
             <img src="./plus-circle.svg" width="30px" height="30px"> <span>Add Task</span>
           </button>
@@ -55,9 +55,38 @@
                   <option value="high">High</option>
                 </select></label>
             </div>
-            <button type="submit">Add</button>
+            <button class="add" type="submit">Add</button>
           </form>
         </dialog>
+
+        <dialog class="edit-dialog">
+          <form method="dialog">
+            <input
+              type="text"
+              id="ed-title"
+              name="title"
+              placeholder="add a task.."
+            />
+            <input
+              type="text"
+              id="ed-desc"
+              name="description"
+              placeholder="more details .."
+            />
+            <div class="date-pri">
+              <label for="dueDate">Due on:</label>
+              <input type="date" id="ed-dueDate" name="dueDate" />
+              <label for="priority">Priority:
+                <select name="priority" id="ed-priority">
+                  <option value="low" selected="selected">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select></label>
+            </div>
+            <button class="save-btn">Save</button>
+          </form>
+        </dialog>
+
         <dialog class="Pdialog">
           <form method="dialog">
             <input
@@ -69,6 +98,7 @@
             <button type="submit">Add New Project</button>
           </form>
         </dialog>
+        
 
         <div class="task-container">
           <div class="task-output">
