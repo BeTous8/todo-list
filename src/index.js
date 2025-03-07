@@ -1,26 +1,40 @@
 import "./styles.css";
-import { Todo } from "./tasks";
-import { Project, projectManager } from "./projects";
-import "./dom-stuff";
+import { projectManager } from "./projects.js";
+import { initializeApp } from "./appInitializer.js";
+import {Todo} from "./tasks.js";
+import { displayTasks } from "./uiHandler.js";
+import { state } from "./state.js";
 
-// const projTitle = document.querySelector('.proj-title');
-// const listOfTasks = document.querySelector('.show-tasks');
+document.addEventListener("DOMContentLoaded", () => {
+  const manager = projectManager();
+  state.manager = manager;
 
-// const manager = projectManager();
+  const addProjectBtn = document.querySelector(".add-sign");
+  const addTaskBtn = document.querySelector(".add-task");
+  const addTaskBtnOnList = document.querySelector(".add-task-list");
+  const Pdialog = document.querySelector(".Pdialog");
+  const dialog = document.querySelector(".dialog");
+  const taskGroup = document.querySelector(".task-group");
+  const listOfTasks = document.querySelector(".show-tasks");
+  const projTitle = document.querySelector(".proj-title");
+  const projectList = document.querySelector(".project-list");
+  const editDialog = document.querySelector(".edit-dialog");
 
-// const currentProject = manager.createProject('Home');
+  
 
-// projTitle.innerHTML = `${currentProject['name']}`;
-// listOfTasks.append(projTitle);
+  state.currentProject = initializeApp(manager, Pdialog, dialog, addProjectBtn, addTaskBtn, addTaskBtnOnList, taskGroup, listOfTasks, projTitle, projectList, editDialog, Todo);
 
-// const homeProject = myProjects.getAllProjects()
-// console.log(myProjects.getAllProjects());
-// const task = homeProject[0]['task'][0]['title'];
-// console.log(task);
 
-// const content = document.querySelector('.content');
 
-// const tsk = document.createElement('p');
-// tsk.textContent = task;
-
-// content.append(tsk)
+  projectList.addEventListener("click", (event) => {
+    const projectElement = event.target.closest(".sb-pn");
+    if (projectElement) {
+      const projectName = projectElement.querySelector("p").textContent;
+      state.currentProject = manager.projectFinder(projectName);
+      projTitle.textContent = state.currentProject.name;
+      listOfTasks.textContent = "";
+      listOfTasks.append(projTitle);
+      displayTasks(state.currentProject.task, taskGroup, listOfTasks, state.currentProject, manager, editDialog);
+    }
+  });
+});

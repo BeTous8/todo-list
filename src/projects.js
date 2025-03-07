@@ -1,4 +1,4 @@
-import { Todo } from "./tasks";
+import { Todo } from "./tasks.js";
 
 class Project {
   constructor(name) {
@@ -13,6 +13,15 @@ class Project {
 
   taskFinder(id) {
     return this.task.find(item => item.id === id);
+  }
+
+  updateTask(task) {
+    const targetTask = this.taskFinder(task.id);
+    targetTask.title = task.title;
+    targetTask.description = task.description;
+    targetTask.dueDate = task.dueDate;
+    targetTask.priority = task.priority;
+
   }
 
   getTasks() {
@@ -59,6 +68,7 @@ function projectManager() {
     projectFinder,
     removeProject,
     clearProjects,
+    
   };
 }
 
