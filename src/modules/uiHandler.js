@@ -1,5 +1,5 @@
-import trashIcon from "./trash-can-outline.svg";
-import pencilIcon from "./pencil.svg";
+import trashIcon from "../assets/trash-can-outline.svg";
+import pencilIcon from "../assets/pencil.svg";
 import {openEditDialog, deleteTask, setupEventListeners} from "./eventHandlers.js";
 import { state } from "./state.js";
 

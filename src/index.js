@@ -1,9 +1,9 @@
 import "./styles.css";
-import { projectManager } from "./projects.js";
-import { initializeApp } from "./appInitializer.js";
-import {Todo} from "./tasks.js";
-import { displayTasks } from "./uiHandler.js";
-import { state } from "./state.js";
+import { projectManager } from "./modules/projects"; // Updated path
+import { initializeApp } from "./modules/appInitializer"; // Updated path
+import { Todo } from "./modules/tasks"; // Updated path
+import { displayTasks } from "./modules/uiHandler"; // Updated path
+import { state } from "./modules/state"; // Updated path
 
 document.addEventListener("DOMContentLoaded", () => {
   const manager = projectManager();
